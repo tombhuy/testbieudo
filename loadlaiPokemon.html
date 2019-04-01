@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Custom Markers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div id="map"></div>
+
+
+    <script type="text/javascript" src="./data.json"></script>
+    <script>
+        var map;
+
+        var pokemonRandoms = [
+            {
+                "idPokemonRandom": 1,
+                "idPokemon": 1,
+                "fullName": "Bulbasaur",
+                "urlImage": "PokemonPictures/1.png",
+                "latitude": 10.851559,
+                "longitude": 106.771659,
+                "cp": 100,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 2,
+                "idPokemon": 4,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/2.png",
+                "latitude": 10.851487,
+                "longitude": 106.771672,
+                "cp": 452,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 3,
+                "idPokemon": 5,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/3.png",
+                "latitude": 10.851567,
+                "longitude": 106.771717,
+                "cp": 115,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 4,
+                "idPokemon": 9,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/4.png",
+                "latitude": 10.851512,
+                "longitude": 106.771917,
+                "cp": 100,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 5,
+                "idPokemon": 10,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/5.png",
+                "latitude": 10.852061,
+                "longitude": 106.771832,
+                "cp": 400,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 6,
+                "idPokemon": 11,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/6.png",
+                "latitude": 10.852036,
+                "longitude": 106.772391,
+                "cp": 570,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 7,
+                "idPokemon": 21,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/7.png",
+                "latitude": 10.850856,
+                "longitude": 106.771568,
+                "cp": 78,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 8,
+                "idPokemon": 24,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/8.png",
+                "latitude": 10.852057,
+                "longitude": 106.772082,
+                "cp": 41,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 9,
+                "idPokemon": 35,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/9.png",
+                "latitude": 10.850485,
+                "longitude": 106.77189,
+                "cp": 78,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 10,
+                "idPokemon": 40,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/10.png",
+                "latitude": 10.851886,
+                "longitude": 106.771097,
+                "cp": 80,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 11,
+                "idPokemon": 45,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/11.png",
+                "latitude": 10.851563,
+                "longitude": 106.772045,
+                "cp": 45,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 12,
+                "idPokemon": 48,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/12.png",
+                "latitude": 10.851592,
+                "longitude": 106.772387,
+                "cp": 38,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 13,
+                "idPokemon": 52,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/13.png",
+                "latitude": 10.851616,
+                "longitude": 106.771421,
+                "cp": 15,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 14,
+                "idPokemon": 53,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/14.png",
+                "latitude": 10.852381,
+                "longitude": 106.772554,
+                "cp": 70,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 15,
+                "idPokemon": 67,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/15.png",
+                "latitude": 10.852414,
+                "longitude": 106.772636,
+                "cp": 102,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 16,
+                "idPokemon": 68,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/16.png",
+                "latitude": 10.852637,
+                "longitude": 106.772004,
+                "cp": 701,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 17,
+                "idPokemon": 71,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/17.png",
+                "latitude": 10.852546,
+                "longitude": 106.771093,
+                "cp": 70,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 18,
+                "idPokemon": 86,
+                "urlImage": "PokemonPictures/18.png",
+                "latitude": 10.850835,
+                "longitude": 106.772373,
+                "cp": 84,
+                "idPokemonNavigation": null,
+                "fullName": "Blude"
+            },
+            {
+                "idPokemonRandom": 19,
+                "idPokemon": 112,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/19.png",
+                "latitude": 10.851446,
+                "longitude": 106.771899,
+                "cp": 64,
+                "idPokemonNavigation": null
+            },
+            {
+                "idPokemonRandom": 20,
+                "idPokemon": 195,
+                "fullName": "Ivysaur",
+                "urlImage": "PokemonPictures/20.png",
+                "latitude": 10.851761,
+                "longitude": 106.772057,
+                "cp": 123,
+                "idPokemonNavigation": null
+            }
+        ]
+
+        //new code
+
+        function initPokemon() {
+            
+
+
+
+
+            map = new google.maps.Map(
+                document.getElementById('map'), {
+                    center: new google.maps.LatLng(10.849906, 106.772007),
+                    zoom: 19,
+                    styles:[{
+                    featureType: "administrative",
+                    elementType: "labels.text.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"},{weight: "2.29"}]
+                  },
+
+                  {
+                    featureType: "administrative.land_parcel",
+                    elementType: "all",
+                    stylers: [{visibility: "on"}]
+                  },
+
+                  {
+                    featureType: "landscape.man_made",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#a1f199"}]
+                  },
+
+                  {
+                    featureType: "landscape.man_made",
+                    elementType: "labels.text",
+                    stylers: [{visibility: "on"},{hue: "#ff0000"}]
+                  },
+
+                  {
+                    featureType: "landscape.natural.landcover",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#37bda2"}]
+                  },
+
+                  {
+                    featureType: "landscape.natural.terrain",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#37bda2"}]
+                  },
+
+                  {
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{visibility: "on"},{color: "#afa0a0"}]
+                  },
+
+                  {
+                    featureType: "poi",
+                    elementType: "labels.text.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"}]
+                  },
+
+                  {
+                    featureType: "poi.attraction",
+                    elementType: "geometry.fill",
+                    stylers: [{visibility: "on"}]
+                  },
+
+                  {
+                    featureType: "poi.business",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "poi.business",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#e4dfd9"}]
+                  },
+
+                  {
+                    featureType: "poi.business",
+                    elementType: "labels.icon",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "poi.government",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "poi.medical",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "poi.park",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#37bda2"}]
+                  },
+
+                  {
+                    featureType: "poi.place_of_worship",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+                  {
+                    featureType: "poi.school",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "poi.sports_complex",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "road",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#84b09e"}]
+                  },
+
+                  {
+                    featureType: "road",
+                    elementType: "geometry.stroke",
+                    stylers: [{color: "#fafeb8"},{weight: "1.25"},{visibility: "on"}]
+                  },
+
+                  {
+                    featureType: "road",
+                    elementType: "labels.text.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"}]
+                  },
+
+                  {
+                    featureType: "road.highway",
+                    elementType: "labels.icon",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "road.arterial",
+                    elementType: "geometry.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"}]
+                  },
+
+                  {
+                    featureType: "road.arterial",
+                    elementType: "labels.text.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"}]
+                  },
+
+                  {
+                    featureType: "road.local",
+                    elementType: "geometry.stroke",
+                    stylers: [{visibility: "on"},{color: "#f1ffb8"},{weight: "1.48"}]
+                  },
+
+                  {
+                    featureType: "road.local",
+                    elementType: "labels",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "transit",
+                    elementType: "all",
+                    stylers: [{visibility: "off"}]
+                  },
+
+                  {
+                    featureType: "water",
+                    elementType: "geometry.fill",
+                    stylers: [{color: "#5ddad6"}]
+                  }
+              ]
+                });
+
+            var infowindow = new google.maps.InfoWindow(); /* SINGLE */
+
+            function placePokemon(pokemon) {
+
+                var icon = {
+                    url: pokemon.urlImage, // url
+                    scaledSize: new google.maps.Size(50, 50), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                };
+
+                var latLng = new google.maps.LatLng(pokemon.latitude, pokemon.longitude);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    icon: icon,
+                    pokemon: pokemon
+                });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.close(); // Close previously opened infowindow
+                    //infowindow.setContent("<div id='infowindow'>" + pokemon.fullName + "</div>");
+                    infowindow.setContent(
+                        '<div style=float:left>' +
+                        '<img src=' + this.pokemon.urlImage + ' width="100" height="100">' +
+                        '</div>' +
+                        '<div style=float:right>' +
+                        '<p>Name: ' + this.pokemon.fullName + '</p>' +
+                        '<p>CP: ' + this.pokemon.cp + '</p>' +
+                        '<p>Lat: ' + this.pokemon.latitude + '</p>' +
+                        '<p>Long: ' + this.pokemon.longitude + '</p>' +
+                        '<button >Catch me</button>' +
+                        '</div>'
+                    );
+
+                    //map.setCenter(this.position);
+                    infowindow.open(map, marker);
+                });
+            }
+
+            for (var i = 0; i < pokemonRandoms.length; i++) {
+                placePokemon(pokemonRandoms[i]);
+            }
+        }
+
+        google.maps.event.addListener(map, "click", function (event) {
+            infowindow.close();
+        });
+
+        ;
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpQs1ss8QJESIiIn_K-ozW9GZQ_yiUlDQ&callback=initPokemon">
+        </script>
+
+</body>
+
+</html>

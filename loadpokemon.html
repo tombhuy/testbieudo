@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Custom Markers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+</body>
+
+<script>
+    $.ajax({
+        type: "GET",
+        url: "http://pokebizlogin.azurewebsites.net/api/pokemonrandom",
+        success: function(data) {
+            $("body").append(JSON.stringify(data));
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+        },
+        dataType: "jsonp"
+    });​​​​​​​​​​​​​​​
+</script>
+
+</html>
