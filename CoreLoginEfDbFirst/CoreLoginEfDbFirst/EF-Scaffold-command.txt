@@ -1,0 +1,3 @@
+Before executing below command, restart visual studio then make sure that Project Build is successful.
+
+Scaffold-DbContext "Server=SQL SERVER (e.g localhost);Database=DATABASE (e.g db_corelogin);Trusted_Connection=True;user id=SQL USERNAME;password=SQL PASSWORD;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/DB
